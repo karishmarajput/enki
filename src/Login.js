@@ -31,22 +31,18 @@ const theme = createTheme();
 export default function Login() {
     const navigate = useNavigate();
 
-    async function handleSubmit() {
-        let user = Moralis.User.current();
-        if (!user) {
-            user = await Moralis.authenticate({ signingMessage: "Log in using Moralis" })
-                .then(function(user) {
-                    console.log("logged in user:", user);
-                    console.log(user.get("ethAddress"));
+    // Redirect user to account page if logged in.
+    if (Moralis.User.current())
+        navigate("/account");
 
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        } else {
-            navigate("/profile");
-            // Handle logged in user
-        }
+    async function handleSubmit() {
+        await Moralis.authenticate({ signingMessage: "Log in using Moralis" })
+            .then(function(user) {
+                console.log("Login Successful", user, user.get("ethAddress"));
+            })
+            .catch(function(error) {
+                console.log("Login failed", error);
+            });
     };
 
     return (
