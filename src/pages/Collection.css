@@ -1,0 +1,8 @@
+.collection-card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wrapper > div {
+    flex: 1 1;
+}
