@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -29,6 +30,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
+    const [loginError, setLoginError] = React.useState("");
+
     const navigate = useNavigate();
 
     // Redirect user to account page if logged in.
@@ -42,6 +45,7 @@ export default function Login() {
             })
             .catch(function(error) {
                 console.log("Login failed", error);
+                setLoginError(error.message);
             });
     };
 
@@ -79,6 +83,13 @@ export default function Login() {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
+                      {
+                            loginError !== "" ? (
+                                    <Alert severity="error">
+                                      {loginError}
+                                    </Alert>
+                                ) : null
+                        }
                         <Box component="form" sx={{ mt: 1 }}>
                             <Button
                                 fullWidth
