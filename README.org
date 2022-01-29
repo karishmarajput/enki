@@ -1,0 +1,10 @@
+#+title: Enki
+#+export_file_name: index
+#+setupfile: ~/.emacs.d/org-templates/projects.org
+
+* Team Apollo
+
+- [[https://github.com/karishmarajput][Karishma]]
+- [[https://github.com/andinus][Andinus]]
+- [[https://github.com/joel122002][Joel]]
+- [[https://github.com/Shubhomrawat][Shubhom]]
