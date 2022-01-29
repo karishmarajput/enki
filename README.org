@@ -4,10 +4,18 @@
 
 * Documentation
 
+** Pages
+
 - Homepage :: Metamask login: Redirect to profile on success, display
   error otherwise.
 
-- Profile :: User Profile Page, Get user owned NFTs.
+- Account :: User Account Page, Get user owned NFTs.
+
+- Explore :: Explore all Collections.
+
+- Collection :: Explore Collection.
+
+- NFT :: View NFT.
 
 * Team Apollo
 
