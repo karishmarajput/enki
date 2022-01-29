@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,9 +12,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Moralis from 'moralis/dist/moralis.min.js';
 
-import { useNavigate } from "react-router-dom";
+import Moralis from 'moralis/dist/moralis.min.js';
 
 function Copyright(props) {
     return (
@@ -30,18 +31,18 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-    const [loginError, setLoginError] = React.useState("");
-
     const navigate = useNavigate();
 
     // Redirect user to account page if logged in.
-    if (Moralis.User.current())
-        navigate("/account");
+    if (Moralis.User.current()) navigate("/account");
+
+    const [loginError, setLoginError] = React.useState("");
 
     async function handleSubmit() {
         await Moralis.authenticate({ signingMessage: "Log in using Moralis" })
             .then(function(user) {
                 console.log("Login Successful", user, user.get("ethAddress"));
+                navigate("/account");
             })
             .catch(function(error) {
                 console.log("Login failed", error);
