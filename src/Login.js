@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Moralis from 'moralis/dist/moralis.min.js';
 
+import { useNavigate } from "react-router-dom";
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -27,19 +29,22 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
+    const navigate = useNavigate();
+
     async function handleSubmit() {
         let user = Moralis.User.current();
         if (!user) {
             user = await Moralis.authenticate({ signingMessage: "Log in using Moralis" })
-                .then(function (user) {
-                    // console.log("logged in user:", user);
-                    // console.log(user.get("ethAddress"));
+                .then(function(user) {
+                    console.log("logged in user:", user);
+                    console.log(user.get("ethAddress"));
+
                 })
-                .catch(function (error) {
-                    // console.log(error);
-                    // console.log(error);
+                .catch(function(error) {
+                    console.log(error);
                 });
         } else {
+            navigate("/profile");
             // Handle logged in user
         }
     };
@@ -94,7 +99,7 @@ export default function Login() {
                                 variant="outlined"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                 Download MetaMask
+                                Download MetaMask
                             </Button>
                             <Copyright sx={{ mt: 5 }} />
                         </Box>
