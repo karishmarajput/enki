@@ -2,6 +2,13 @@
 #+export_file_name: index
 #+setupfile: ~/.emacs.d/org-templates/projects.org
 
+* Documentation
+
+- Homepage :: Metamask login: Redirect to profile on success, display
+  error otherwise.
+
+- Profile :: User Profile Page, Get user owned NFTs.
+
 * Team Apollo
 
 - [[https://github.com/karishmarajput][Karishma]]
