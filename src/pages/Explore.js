@@ -27,7 +27,7 @@ export default function Explore() {
     const [collections, setCollections] = useState([]);
 
     useEffect(() => {
-        const limit = 20;
+        const limit = 300;
         let offset = 0;
         let xhr = new XMLHttpRequest();
         xhr.open('GET', `https://api.opensea.io/api/v1/collections?offset=${offset}&limit=${limit}`, true);
@@ -55,14 +55,16 @@ export default function Explore() {
           />
           {
                 collections.map((collection) => {
-                    return (
-                        <ExploreCard
-                            title={collection.name}
-                            image={collection.banner_image_url}
-                            text={collection.description}
-                            slug={collection.slug}
-                        />
-                    );
+                    if (collection.banner_image_url != null) {
+                        return (
+                            <ExploreCard
+                                title={collection.name}
+                                image={collection.banner_image_url}
+                                text={collection.description}
+                                slug={collection.slug}
+                            />
+                        );
+                    }
                 })
           }
         </div>
