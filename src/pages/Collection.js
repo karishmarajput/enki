@@ -110,7 +110,7 @@ export default function Collection() {
                 {nfts.map((nft) => {
                     return (
                         <CollectionCard address={nft.asset_contract.address} token_id={nft.token_id} title={nft.name} image={nft.image_preview_url} text={nft.description} key={nft.name}/>
-                    )
+                    );
                 })}
             </div>
           <Button onClick={() => { setOffset(offset + 1); getMoreNFTs(); }} variant="contained" sx={{ mt: 3, mb: 2 }}>Load More</Button>
