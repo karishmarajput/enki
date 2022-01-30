@@ -1,0 +1,53 @@
+.Nft-page-header{
+    display: flex;
+    justify-content: space-around;
+}
+details {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+}
+
+
+summary {
+    font-weight: bold;
+    margin: -.5em -.5em 0;
+    padding: .5em;
+}
+
+details[open] {
+    padding: .5em;
+}
+
+details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: .5em;
+}
+.header-image-div{
+    width: 50%;
+}
+.header-contain-div{
+    width: 50%;
+}
+.summary-div{
+    margin: 2rem;
+}
+
+.description-div{
+    border: 1px solid #aaa;
+    border-radius: 1rem;
+    margin: 2rem;
+    padding: 1rem;
+}
+
+@media only screen and (max-width: 600px){
+    .Nft-page-header{
+        flex-direction: column;
+    }
+    .header-image-div{
+        width: 100%;
+    }
+    .header-contain-div{
+        width: 100%;
+    }
+}
