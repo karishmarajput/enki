@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import Account from './pages/Account';
 import Explore from './pages/Explore';
 import Collection from './pages/Collection';
+import NFTpage from "./pages/NFTpage";
 
 const serverUrl = "https://a8kyvifx3fa2.usemoralis.com:2053/server";
 const appId = "NZgHcC9ZnV8RB4meNsSkXQX85Zlg7la9vM4VxTYo";
@@ -26,6 +27,7 @@ ReactDOM.render(
                 <Route path="/" element={<Login />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="/collection/:slug" element={<Collection />} />
+                <Route path="/assets/:address/:id" element={<NFTpage />} />
                 <Route path="/explore" element={<Explore />} />
             </Routes>
         </BrowserRouter>

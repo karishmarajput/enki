@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 
 import './CollectionCard.css';
+import {useNavigate} from "react-router-dom";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -24,8 +25,13 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function CollectionCard(prop) {
+    const navigate = useNavigate();
+    function onNFTClick() {
+        navigate(`/assets/${prop.address}/${prop.token_id}`);
+    }
+
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card onClick={onNFTClick} sx={{ maxWidth: 345 }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

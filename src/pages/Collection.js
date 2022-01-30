@@ -57,7 +57,8 @@ export default function Collection() {
             .then(data => {
                 // let newArr = nfts
                 // newArr.push(...data.assets)
-                setNfts([...nfts,...data.assets]);
+                setNfts([...nfts,...data.assets])
+                console.log(data.assets);
                 // console.log(newArr)
             });
     }
@@ -73,6 +74,7 @@ export default function Collection() {
         setOffset(0);
         getNFTs();
     }
+
 
     return (
         <div>
@@ -107,7 +109,7 @@ export default function Collection() {
             <div className="collection-card-wrapper">
                 {nfts.map((nft) => {
                     return (
-                        <CollectionCard title={nft.name} image={nft.image_preview_url} text={nft.description} key={nft.name}/>
+                        <CollectionCard address={nft.asset_contract.address} token_id={nft.token_id} title={nft.name} image={nft.image_preview_url} text={nft.description} key={nft.name}/>
                     )
                 })}
             </div>
