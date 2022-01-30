@@ -14,6 +14,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
+import './Header.css';
+
 const pages = [
     { title: "Home", link: "/" },
     { title: "Explore", link: "/explore" },
@@ -21,7 +23,7 @@ const pages = [
 
 const settings = [
     { title: "Account", link: "/account" },
-    { title: "Logout", link: "/logout" },
+    { title: "Logout", link: "/" },
 ];
 
 const ResponsiveAppBar = () => {

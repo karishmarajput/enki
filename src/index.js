@@ -12,6 +12,7 @@ import Moralis from 'moralis/dist/moralis.min.js';
 import './index.css';
 import Login from './pages/Login';
 import Account from './pages/Account';
+import Explore from './pages/Explore';
 import Collection from './pages/Collection';
 
 const serverUrl = "https://a8kyvifx3fa2.usemoralis.com:2053/server";
@@ -24,7 +25,8 @@ ReactDOM.render(
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/account" element={<Account />} />
-                <Route path="/collection" element={<Collection />} />
+                <Route path="/collection/:slug" element={<Collection />} />
+                <Route path="/explore" element={<Explore />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>,

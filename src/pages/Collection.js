@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useParams } from 'react-router-dom';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,26 +17,28 @@ export default function Collection() {
     const [sortBy, setSortBy] = useState('sale_count');
     const [sortDirection, setSortDirection] = useState('desc');
     const [offset, setOffset] = useState(0);
+    const { slug } = useParams();
+
     useEffect(() => {
         getNFTs();
     }, []);
 
-    useEffect(() => {
-        setOffset(0);
-        getNFTs();
-        console.log(sortDirection);
-        console.log(sortBy);
-    }, [sortDirection, sortBy]);
+    // useEffect(() => {
+    //     setOffset(0);
+    //     getNFTs();
+    //     console.log(sortDirection);
+    //     console.log(sortBy);
+    // }, [sortDirection, sortBy]);
 
-    useEffect(() => {
-        getMoreNFTs();
-        console.log(offset);
-    }, [offset]);
+    // useEffect(() => {
+    //     getMoreNFTs();
+    //     console.log(offset);
+    // }, [offset]);
 
     function getNFTs() {
-        const collection = 'doodles-official';
+        const collection = slug;
         const limit = 20;
-        let URLNfts = `https://api.opensea.io/api/v1/assets?order_direction=${sortDirection}&offset=${offset}&limit=${limit}&collection=${collection}&order_by=${sortBy}`;
+        let URLNfts = `https://testnets-api.opensea.io/api/v1/assets?order_direction=${sortDirection}&offset=${offset}&limit=${limit}&collection=${collection}&order_by=${sortBy}`;
         fetch(URLNfts)
             .then(response => response.json())
             .then(data => {
@@ -46,9 +49,9 @@ export default function Collection() {
 
     function getMoreNFTs() {
         console.log(offset);
-        const collection = 'doodles-official';
+        const collection = slug;
         const limit = 20;
-        let URLNfts = `https://api.opensea.io/api/v1/assets?order_direction=${sortDirection}&offset=${offset}&limit=${limit}&collection=${collection}&order_by=${sortBy}`;
+        let URLNfts = `https://testnets-api.opensea.io/api/v1/assets?order_direction=${sortDirection}&offset=${offset}&limit=${limit}&collection=${collection}&order_by=${sortBy}`;
         fetch(URLNfts)
             .then(response => response.json())
             .then(data => {
@@ -60,11 +63,15 @@ export default function Collection() {
     }
 
     function sortByChange(event) {
-        setSortBy(event.target.value)
+        setSortBy(event.target.value);
+        setOffset(0);
+        getNFTs();
     }
 
     function sortDirectionChange(event) {
-        setSortDirection(event.target.value)
+        setSortDirection(event.target.value);
+        setOffset(0);
+        getNFTs();
     }
 
     return (
@@ -104,7 +111,7 @@ export default function Collection() {
                     )
                 })}
             </div>
-            <Button onClick={() => setOffset(offset + 1)} variant="contained" sx={{ mt: 3, mb: 2 }}>Load More</Button>
+          <Button onClick={() => { setOffset(offset + 1); getMoreNFTs(); }} variant="contained" sx={{ mt: 3, mb: 2 }}>Load More</Button>
         </div>
     );
 }
