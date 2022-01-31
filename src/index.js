@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import Moralis from 'moralis/dist/moralis.min.js';
+import { MoralisProvider } from "react-moralis";
 
 import './index.css';
 import Login from './pages/Login';
@@ -22,6 +23,10 @@ Moralis.start({ serverUrl, appId });
 
 ReactDOM.render(
     <React.StrictMode>
+        <MoralisProvider
+				appId={process.env.REACT_APP_MORALIS_APP_ID}
+				serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
+			>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Login />} />
@@ -31,6 +36,7 @@ ReactDOM.render(
                 <Route path="/explore" element={<Explore />} />
             </Routes>
         </BrowserRouter>
+        </MoralisProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );

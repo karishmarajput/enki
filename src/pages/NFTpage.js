@@ -4,13 +4,32 @@ import Moralis from 'moralis/dist/moralis.min.js';
 
 import Header from "../components/Header";
 
+import Button from '@mui/material/Button';
+import Fingerprint from '@mui/icons-material/Fingerprint';
+
 import './NFTpage.css';
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo } from "react";
+import { useMoralis } from "react-moralis";
 
 export default function NFTpage() {
     let user = Moralis.User.current();
+    let {
+		enableWeb3,
+		isInitialized,
+		isAuthenticated,
+		isWeb3Enabled,
+	} = useMoralis();
 
+    useEffect(() => {
+		if (isInitialized) {
+			Moralis.initPlugins();
+		}
+	}, []);
+    if(user){
+        isAuthenticated= true;
+    }
+    console.log(isAuthenticated);
     const owner = user.get("ethAddress");
     const [data, setData] = useState(undefined)
     const {address} = useParams();
@@ -26,8 +45,33 @@ export default function NFTpage() {
                 console.log(data);
             });
     }, [])
+    const web3Account = useMemo(
+		() => isAuthenticated && user.get("accounts")[0],
+		[user, isAuthenticated],
+	);
+    const createBuyOrder = async () => {
+		await Moralis.Plugins.opensea.createBuyOrder({
+			network: "testnet",
+			tokenAddress: address,
+			tokenId: id,
+			tokenType: "ERC721",
+			amount: 0.0001,
+			userAddress: web3Account,
+			paymentTokenAddress: "0xc778417e063141139fce010982780140aa0cd5ab",
+		}).then(response =>{
+            alert("Buy Order Successful");
+            console.log(response);
+        }).catch(e => {      
+            alert(e)
+        });
+	};
 
 
+	useEffect(() => {
+		if (isAuthenticated && !isWeb3Enabled) {
+			enableWeb3();
+		}
+	}, [isAuthenticated]);
     return (
         <div>
             <Header/>
@@ -39,14 +83,18 @@ export default function NFTpage() {
                         <div className="header-image-div">
                             <img src={data.image_url}></img>
                             <div className="description-div">
-                                <h3>Description</h3>
-
+                                <h3>Description</h3><hr/>
+                                <p>{data.description}</p>
                                 <div className="summary-div">
 
                                     <details>
                                         <summary>About {data.name}</summary>
-                                        <p><img src={data.asset_contract.image_url}></img>
-                                            <br/>{data.asset_contract.description}</p>
+                                        <p>
+                                            
+                                                <img className="description-image" src={data.asset_contract.image_url}></img>
+                                                <br/><br/>{data.asset_contract.description}
+                                        
+                                        </p>
                                     </details>
 
                                 </div>
@@ -56,7 +104,7 @@ export default function NFTpage() {
                                         <summary>Details</summary>
                                         <p>
 
-                                            Contract Address: {data.asset_contract.address}<br/>
+                                            Contract Address: {data.asset_contract.address}<br/><br/>
                                             Token ID: {data.token_id}
 
                                         </p>
@@ -92,6 +140,13 @@ export default function NFTpage() {
                                         events.</p>
                                 </details>
                             </div>
+                            {isAuthenticated && (
+                                <>
+                                    <Button onClick={createBuyOrder} variant="contained" endIcon={<Fingerprint />}>
+                                        Buy Now
+                                    </Button>
+                                </>
+                            )}
                         </div>
 
                     </div>

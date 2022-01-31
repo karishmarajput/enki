@@ -39,7 +39,11 @@ details[open] summary {
     margin: 2rem;
     padding: 1rem;
 }
-
+.description-image{
+    height: 4rem;
+    width: 4rem;
+    align-self: center
+}
 @media only screen and (max-width: 600px){
     .Nft-page-header{
         flex-direction: column;
